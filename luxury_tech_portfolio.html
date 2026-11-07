@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S. Suji | B.Tech IT Portfolio</title>
+<!-- Tailwind CSS for utility foundation -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<!-- Inter, Playfair Display, and JetBrains Mono Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg-main: #050811;
+    --bg-card: rgba(13, 21, 37, 0.65);
+    --gold: #d7b778;
+    --gold-light: #f4e3c1;
+    --gold-glow: rgba(215, 183, 120, 0.22);
+    --line: rgba(215, 183, 120, 0.15);
+    --line-bright: rgba(215, 183, 120, 0.45);
+    --text-main: #f4f1e9;
+    --text-muted: #9aa5b8;
+  }
+
+  * {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+    background-image: 
+      radial-gradient(circle at 85% 5%, rgba(215, 183, 120, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 15% 50%, rgba(30, 58, 110, 0.18) 0%, transparent 50%),
+      radial-gradient(circle at 50% 90%, rgba(215, 183, 120, 0.06) 0%, transparent 40%);
+    background-attachment: fixed;
+  }
+
+  /* Custom Luxury Typography */
+  .font-serif-title {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  .font-mono-code {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Metallic Gold Shimmer Animation */
+  .gold-shimmer {
+    background: linear-gradient(110deg, #d7b778 0%, #fff7e6 35%, #d7b778 70%, #a38245 100%);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: goldShine 6s linear infinite;
+  }
+
+  @keyframes goldShine {
+    to { background-position: 200% center; }
+  }
+
+  /* Glassmorphism & Spotlight Card */
+  .bento-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .bento-card::before {
+    content: '';
+    position: absolute;
+    top: var(--y, -100px);
+    left: var(--x, -100px);
+    width: 340px;
+    height: 340px;
+    background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .bento-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--line-bright);
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55), 0 0 25px rgba(215, 183, 120, 0.12);
+  }
+
+  .bento-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Floating Image Animation */
+  .portrait-container {
+    position: relative;
+  }
+
+  .portrait-container::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 26px;
+    background: linear-gradient(135deg, var(--gold), transparent 60%, var(--gold));
+    opacity: 0.6;
+    z-index: -1;
+    animation: borderPulse 4s ease-in-out infinite alternate;
+  }
+
+  @keyframes borderPulse {
+    0% { opacity: 0.4; filter: blur(2px); }
+    100% { opacity: 0.85; filter: blur(6px); }
+  }
+
+  .floating-img {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Scroll Reveal Animation Classes */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Stagger delays */
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.2s; }
+  .delay-3 { transition-delay: 0.3s; }
+
+  /* Tag Styling */
+  .tech-tag {
+    background: rgba(215, 183, 120, 0.07);
+    border: 1px solid rgba(215, 183, 120, 0.2);
+    color: #e2e8f0;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .tech-tag:hover {
+    background: rgba(215, 183, 120, 0.22);
+    border-color: var(--gold);
+    color: var(--gold-light);
+    transform: translateY(-2px);
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050811;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 4px;
+    border: 1px solid rgba(215, 183, 120, 0.2);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+  }
+
+  /* Navigation Underline Effect */
+  .nav-link {
+    position: relative;
+    color: var(--text-muted);
+    transition: color 0.3s ease;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1.5px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--gold);
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--gold-light);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+</style>
+</head>
+
+<body class="selection:bg-amber-500/20 selection:text-amber-200">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-[#050811]/80 border-b border-[#d7b778]/15">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="group flex items-center gap-2">
+        <span class="font-serif-title text-2xl font-bold tracking-wider text-white group-hover:text-[#d7b778] transition-colors">
+          SUJI<span class="text-[#d7b778]">.</span>
+        </span>
+        <span class="text-[10px] font-mono-code px-2 py-0.5 rounded border border-[#d7b778]/30 text-[#d7b778] bg-[#d7b778]/10">
+          B.TECH IT
+        </span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-xs font-semibold tracking-widest uppercase">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#education" class="nav-link">Education</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <!-- Action Button -->
+      <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#d7b778]/40 text-[#d7b778] text-xs font-semibold tracking-wider hover:bg-[#d7b778] hover:text-[#050811] transition-all duration-300 shadow-lg shadow-[#d7b778]/5">
+        <span>LET'S CONNECT</span>
+        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+      </a>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button id="menu-toggle" aria-label="Toggle navigation menu" class="md:hidden text-[#9aa5b8] hover:text-white focus:outline-none">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[#0a1120] border-b border-[#d7b778]/20 px-6 py-6 space-y-4">
+      <a href="#about" class="mobile-nav-item block text-sm font-medium text-gray-300 hover:text-[#d7b778]">About</a>
+      <a href="#education" class="mobile-nav-item block text-sm font-medium text-gray-300 hover:text-[#d7b778]">Education</a>
+      <a href="#skills" class="mobile-nav-item block text-sm font-medium text-gray-300 hover:text-[#d7b778]">Skills</a>
+      <a href="#projects" class="mobile-nav-item block text-sm font-medium text-gray-300 hover:text-[#d7b778]">Projects</a>
+      <a href="#contact" class="mobile-nav-item block text-sm font-medium text-gray-300 hover:text-[#d7b778]">Contact</a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-6xl mx-auto px-6 pt-32 pb-24 space-y-24">
+
+    <!-- HERO SECTION -->
+    <section class="min-h-[75vh] flex flex-col-reverse lg:grid lg:grid-cols-12 gap-12 items-center justify-between">
+      
+      <!-- Hero Text Content -->
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left reveal">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#d7b778]/30 bg-[#d7b778]/5 text-[#d7b778] text-xs tracking-widest font-semibold uppercase">
+          <span class="w-2 h-2 rounded-full bg-[#d7b778] animate-pulse"></span>
+          Student Portfolio · Class of 2026
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08]">
+          S. Suji<br>
+          <span class="gold-shimmer font-serif-title font-normal italic">B.Tech IT Engineer</span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-[#9aa5b8] max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
+          First-year Information Technology student at <strong class="text-gray-200">St. Joseph College of Engineering</strong>. Curious learner, tech enthusiast, and future problem solver building elegant software solutions.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+          <a href="#projects" class="px-7 py-3.5 rounded-full bg-[#d7b778] text-[#050811] text-xs font-bold tracking-widest uppercase hover:bg-[#f4e3c1] transition-all duration-300 shadow-xl shadow-[#d7b778]/20 flex items-center gap-2">
+            <span>Explore Projects</span>
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </a>
+          <a href="#contact" class="px-7 py-3.5 rounded-full border border-[#d7b778]/30 text-gray-300 text-xs font-bold tracking-widest uppercase hover:border-[#d7b778] hover:text-[#d7b778] transition-all duration-300">
+            Let's Connect ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Portrait Card -->
+      <div class="lg:col-span-5 flex justify-center reveal delay-2">
+        <div class="portrait-container w-64 sm:w-80 aspect-square">
+          <div class="w-full h-full rounded-2xl overflow-hidden bento-card p-2 border border-[#d7b778]/30 shadow-2xl floating-img relative">
+            
+            <!-- Standard Portrait Image Avatar -->
+            <img 
+              src="suji_profile.jpg" 
+              alt="Professional Portrait of S. Suji" 
+              class="w-full h-full object-cover rounded-xl contrast-105 hover:contrast-115 transition-all duration-700 object-top"
+              onerror="this.onerror=null; this.src='https://placehold.co/600x600/0d1525/d7b778?text=S.+Suji';"
+            />
+            
+            <div class="absolute bottom-4 left-4 right-4 bg-[#050811]/90 backdrop-blur-md border border-[#d7b778]/30 p-3 rounded-xl flex items-center justify-between">
+              <div>
+                <p class="text-xs font-bold text-white">S. Suji</p>
+                <p class="text-[10px] text-[#9aa5b8] font-mono-code">Department of IT</p>
+              </div>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-[#050811]"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="space-y-8 pt-12">
+      <div class="reveal">
+        <p class="text-xs font-mono-code text-[#d7b778] tracking-widest uppercase">// 01. OVERVIEW</p>
+        <h2 class="text-2xl sm:text-4xl font-bold mt-1 tracking-tight">About Me</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Main Bio Card (2 cols) -->
+        <div class="bento-card md:col-span-2 p-8 flex flex-col justify-between reveal delay-1">
+          <div class="space-y-4">
+            <div class="w-10 h-10 rounded-xl bg-[#d7b778]/10 border border-[#d7b778]/30 flex items-center justify-center text-[#d7b778]">
+              <i data-lucide="user" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Passionate IT Student & Aspiring Developer</h3>
+            <p class="text-[#9aa5b8] text-sm leading-relaxed">
+              I am a first-year B.Tech Information Technology student at <strong class="text-white">St. Joseph College of Engineering</strong>, building a strong foundation in programming, software development paradigms, and web technology stacks.
+            </p>
+            <p class="text-[#9aa5b8] text-sm leading-relaxed">
+              I enjoy exploring new tools, solving practical software problems, and collaborating with peers to create impactful, intuitive digital experiences.
+            </p>
+          </div>
+
+          <div class="pt-6 border-t border-[#d7b778]/15 mt-6 flex flex-wrap items-center justify-between gap-4">
+            <span class="text-xs text-gray-400 font-mono-code">Status: Undergraduate Student</span>
+            <span class="text-xs text-[#d7b778] font-mono-code">Focus: Software & Web Tech</span>
+          </div>
+        </div>
+
+        <!-- Career Objective Bento Card -->
+        <div class="bento-card p-8 flex flex-col justify-between bg-gradient-to-b from-[#0d1525] to-[#080d1a] reveal delay-2">
+          <div class="space-y-4">
+            <div class="w-10 h-10 rounded-xl bg-[#d7b778]/10 border border-[#d7b778]/30 flex items-center justify-center text-[#d7b778]">
+              <i data-lucide="compass" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Career Objective</h3>
+            <p class="text-[#9aa5b8] text-sm leading-relaxed">
+              To apply my technical knowledge, gain real-world project experience, and grow into a highly capable Information Technology professional.
+            </p>
+          </div>
+
+          <div class="pt-6 border-t border-[#d7b778]/15 mt-6">
+            <div class="flex items-center gap-2 text-xs font-semibold text-[#d7b778]">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+              <span>Ready for Collaborations</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education" class="space-y-8 pt-12">
+      <div class="reveal">
+        <p class="text-xs font-mono-code text-[#d7b778] tracking-widest uppercase">// 02. ACADEMICS</p>
+        <h2 class="text-2xl sm:text-4xl font-bold mt-1 tracking-tight">Education</h2>
+      </div>
+
+      <div class="bento-card p-8 reveal delay-1">
+        <div class="relative border-l-2 border-[#d7b778]/30 ml-4 pl-8 space-y-8 py-2">
+          
+          <!-- College Timeline Item -->
+          <div class="relative group">
+            <!-- Timeline node icon -->
+            <div class="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-[#050811] border-2 border-[#d7b778] group-hover:scale-125 group-hover:bg-[#d7b778] transition-all duration-300"></div>
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+              <h3 class="text-lg font-bold text-white group-hover:text-[#d7b778] transition-colors">
+                B.Tech – Information Technology
+              </h3>
+              <span class="font-mono-code text-xs text-[#d7b778] px-3 py-1 rounded-full bg-[#d7b778]/10 border border-[#d7b778]/20 w-fit">
+                2026 – Present (1st Year)
+              </span>
+            </div>
+            <p class="text-sm font-medium text-gray-300">St. Joseph College of Engineering</p>
+            <p class="text-xs text-[#9aa5b8] mt-2 leading-relaxed max-w-2xl">
+              Studying core subjects including Object-Oriented Programming, Data Structures, Web Technology Basics, and Computer Architecture.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL SKILLS SECTION -->
+    <section id="skills" class="space-y-8 pt-12">
+      <div class="reveal">
+        <p class="text-xs font-mono-code text-[#d7b778] tracking-widest uppercase">// 03. CAPABILITIES</p>
+        <h2 class="text-2xl sm:text-4xl font-bold mt-1 tracking-tight">Technical Skills</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Skill Card 1: Programming -->
+        <div class="bento-card p-6 space-y-6 reveal delay-1">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="code-2" class="w-5 h-5 text-[#d7b778]"></i>
+              Programming
+            </h3>
+            <span class="text-[10px] font-mono-code text-gray-400">LANGUAGES</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="tech-tag">C</span>
+            <span class="tech-tag">C++</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Java</span>
+          </div>
+        </div>
+
+        <!-- Skill Card 2: Web & Tools -->
+        <div class="bento-card p-6 space-y-6 reveal delay-2">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="layout" class="w-5 h-5 text-[#d7b778]"></i>
+              Web & Tools
+            </h3>
+            <span class="text-[10px] font-mono-code text-gray-400">ENVIRONMENT</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Git</span>
+            <span class="tech-tag">GitHub</span>
+            <span class="tech-tag">VS Code</span>
+          </div>
+        </div>
+
+        <!-- Skill Card 3: Core Competencies -->
+        <div class="bento-card p-6 space-y-6 reveal delay-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="cpu" class="w-5 h-5 text-[#d7b778]"></i>
+              Core Foundations
+            </h3>
+            <span class="text-[10px] font-mono-code text-gray-400">CONCEPTS</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="tech-tag">Problem Solving</span>
+            <span class="tech-tag">Database Fundamentals</span>
+            <span class="tech-tag">Software Development</span>
+            <span class="tech-tag">OOPs Logic</span>
+          </div>
+        </div>
+
+      </div>
+      <p class="text-xs text-[#9aa5b8] font-mono-code text-center md:text-left">
+        * Technologies currently under study and practical exploration.
+      </p>
+    </section>
+
+    <!-- SELECTED PROJECTS SECTION -->
+    <section id="projects" class="space-y-8 pt-12">
+      <div class="reveal">
+        <p class="text-xs font-mono-code text-[#d7b778] tracking-widest uppercase">// 04. PORTFOLIO WORK</p>
+        <h2 class="text-2xl sm:text-4xl font-bold mt-1 tracking-tight">Selected Projects</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Project 1 Card -->
+        <div class="bento-card p-8 flex flex-col justify-between space-y-6 reveal delay-1 group">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="font-mono-code text-xs text-[#d7b778]">PROJECT // 01</span>
+              <div class="flex items-center gap-2 text-gray-400 group-hover:text-[#d7b778] transition-colors">
+                <i data-lucide="folder-git-2" class="w-5 h-5"></i>
+              </div>
+            </div>
+            
+            <h3 class="text-xl font-bold text-white group-hover:text-[#d7b778] transition-colors">
+              Student Records Management Utility
+            </h3>
+
+            <p class="text-xs text-[#9aa5b8] leading-relaxed">
+              <strong class="text-gray-300">Problem:</strong> Streamlining record keeping and mark tracking for student databases.
+            </p>
+
+            <p class="text-xs text-[#9aa5b8] leading-relaxed">
+              <strong class="text-gray-300">Solution:</strong> Built a structured management application to query, organize, and store academic records securely.
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-[#d7b778]/15 flex flex-wrap gap-2">
+            <span class="text-[11px] font-mono-code px-2.5 py-1 rounded bg-[#d7b778]/10 text-[#d7b778] border border-[#d7b778]/20">Python / C++</span>
+            <span class="text-[11px] font-mono-code px-2.5 py-1 rounded bg-[#d7b778]/10 text-[#d7b778] border border-[#d7b778]/20">File I/O</span>
+            <span class="text-[11px] font-mono-code px-2.5 py-1 rounded bg-[#d7b778]/10 text-[#d7b778] border border-[#d7b778]/20">Data Structures</span>
+          </div>
+        </div>
+
+        <!-- Project 2 Card -->
+        <div class="bento-card p-8 flex flex-col justify-between space-y-6 reveal delay-2 group">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="font-mono-code text-xs text-[#d7b778]">PROJECT // 02</span>
+              <div class="flex items-center gap-2 text-gray-400 group-hover:text-[#d7b778] transition-colors">
+                <i data-lucide="globe" class="w-5 h-5"></i>
+              </div>
+            </div>
+            
+            <h3 class="text-xl font-bold text-white group-hover:text-[#d7b778] transition-colors">
+              Personal Portfolio & Web Showcase
+            </h3>
+
+            <p class="text-xs text-[#9aa5b8] leading-relaxed">
+              <strong class="text-gray-300">Problem:</strong> Presenting academic projects and technical credentials in a high-performance visual format.
+            </p>
+
+            <p class="text-xs text-[#9aa5b8] leading-relaxed">
+              <strong class="text-gray-300">Solution:</strong> Designed an obsidian-themed portfolio with glassmorphism Bento layouts, micro-animations, and full mobile responsiveness.
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-[#d7b778]/15 flex flex-wrap gap-2">
+            <span class="text-[11px] font-mono-code px-2.5 py-1 rounded bg-[#d7b778]/10 text-[#d7b778] border border-[#d7b778]/20">HTML5</span>
+            <span class="text-[11px] font-mono-code px-2.5 py-1 rounded bg-[#d7b778]/10 text-[#d7b778] border border-[#d7b778]/20">Tailwind CSS</span>
+            <span class="text-[11px] font-mono-code px-2.5 py-1 rounded bg-[#d7b778]/10 text-[#d7b778] border border-[#d7b778]/20">JavaScript</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS & STRENGTHS SECTION -->
+    <section class="space-y-8 pt-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Certifications Bento Card -->
+        <div class="bento-card p-8 space-y-6 reveal delay-1">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-[#d7b778]/10 border border-[#d7b778]/30 flex items-center justify-center text-[#d7b778]">
+              <i data-lucide="award" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white">Certifications & Training</h3>
+              <p class="text-xs text-[#9aa5b8]">Courses & achievements</p>
+            </div>
+          </div>
+
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3 text-xs text-gray-300">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-[#d7b778] shrink-0 mt-0.5"></i>
+              <div>
+                <strong class="text-white">Programming Foundations Course</strong>
+                <p class="text-[#9aa5b8]">Technical Skill Building · 2026</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3 text-xs text-gray-300">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-[#d7b778] shrink-0 mt-0.5"></i>
+              <div>
+                <strong class="text-white">Web Development & Logic Workshop</strong>
+                <p class="text-[#9aa5b8]">College Technical Forum · 2026</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Personal Strengths Card -->
+        <div class="bento-card p-8 space-y-6 reveal delay-2">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-[#d7b778]/10 border border-[#d7b778]/30 flex items-center justify-center text-[#d7b778]">
+              <i data-lucide="zap" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white">Personal Strengths</h3>
+              <p class="text-xs text-[#9aa5b8]">Soft skills & working style</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2.5">
+            <span class="tech-tag">Adaptability</span>
+            <span class="tech-tag">Teamwork</span>
+            <span class="tech-tag">Communication</span>
+            <span class="tech-tag">Time Management</span>
+            <span class="tech-tag">Learning Mindset</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="space-y-8 pt-12">
+      <div class="reveal">
+        <p class="text-xs font-mono-code text-[#d7b778] tracking-widest uppercase">// 05. REACH OUT</p>
+        <h2 class="text-2xl sm:text-4xl font-bold mt-1 tracking-tight">Let's Connect</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Contact Info Bento Card (5 cols) -->
+        <div class="bento-card lg:col-span-5 p-8 space-y-6 reveal delay-1 flex flex-col justify-between">
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-xl font-bold text-white">Contact Details</h3>
+              <p class="text-xs text-[#9aa5b8] mt-1 leading-relaxed">
+                Open to internships, learning opportunities, and technical collaborative projects.
+              </p>
+            </div>
+
+            <div class="space-y-4">
+              <!-- Email -->
+              <div class="flex items-center gap-4 group">
+                <div class="w-10 h-10 rounded-lg bg-[#d7b778]/10 border border-[#d7b778]/30 flex items-center justify-center text-[#d7b778] group-hover:scale-110 transition-transform">
+                  <i data-lucide="mail" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <p class="text-[10px] font-mono-code text-gray-400">EMAIL</p>
+                  <a href="mailto:sujisr070608@gmail.com" class="text-xs font-medium text-white hover:text-[#d7b778] transition-colors">
+                    sujisr070608@gmail.com
+                  </a>
+                </div>
+              </div>
+
+              <!-- Phone -->
+              <div class="flex items-center gap-4 group">
+                <div class="w-10 h-10 rounded-lg bg-[#d7b778]/10 border border-[#d7b778]/30 flex items-center justify-center text-[#d7b778] group-hover:scale-110 transition-transform">
+                  <i data-lucide="phone" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <p class="text-[10px] font-mono-code text-gray-400">PHONE</p>
+                  <a href="tel:6385847322" class="text-xs font-medium text-white hover:text-[#d7b778] transition-colors">
+                    +91 6385847322
+                  </a>
+                </div>
+              </div>
+
+              <!-- Institution -->
+              <div class="flex items-center gap-4 group">
+                <div class="w-10 h-10 rounded-lg bg-[#d7b778]/10 border border-[#d7b778]/30 flex items-center justify-center text-[#d7b778] group-hover:scale-110 transition-transform">
+                  <i data-lucide="building-2" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <p class="text-[10px] font-mono-code text-gray-400">COLLEGE</p>
+                  <p class="text-xs font-medium text-white">
+                    St. Joseph College of Engineering
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-[#d7b778]/15">
+            <p class="text-[11px] text-[#9aa5b8]">
+              Available for academic and project inquiries.
+            </p>
+          </div>
+        </div>
+
+        <!-- Quick Message Form Card (7 cols) -->
+        <div class="bento-card lg:col-span-7 p-8 reveal delay-2">
+          <form id="contact-form" class="space-y-4" onsubmit="handleFormSubmit(event)">
+            <h3 class="text-lg font-bold text-white mb-4">Send a Direct Message</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1">
+                <label class="text-[11px] font-mono-code text-gray-400">YOUR NAME</label>
+                <input type="text" required placeholder="Name" class="w-full px-4 py-2.5 rounded-lg bg-[#050811]/80 border border-[#d7b778]/20 text-white text-xs focus:outline-none focus:border-[#d7b778] transition-colors">
+              </div>
+              <div class="space-y-1">
+                <label class="text-[11px] font-mono-code text-gray-400">EMAIL ADDRESS</label>
+                <input type="email" required placeholder="name@example.com" class="w-full px-4 py-2.5 rounded-lg bg-[#050811]/80 border border-[#d7b778]/20 text-white text-xs focus:outline-none focus:border-[#d7b778] transition-colors">
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-[11px] font-mono-code text-gray-400">SUBJECT</label>
+              <input type="text" required placeholder="Inquiry / Internship Opportunity" class="w-full px-4 py-2.5 rounded-lg bg-[#050811]/80 border border-[#d7b778]/20 text-white text-xs focus:outline-none focus:border-[#d7b778] transition-colors">
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-[11px] font-mono-code text-gray-400">MESSAGE</label>
+              <textarea rows="4" required placeholder="Write your message here..." class="w-full px-4 py-2.5 rounded-lg bg-[#050811]/80 border border-[#d7b778]/20 text-white text-xs focus:outline-none focus:border-[#d7b778] transition-colors resize-none"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-3 rounded-lg bg-[#d7b778] text-[#050811] text-xs font-bold tracking-widest uppercase hover:bg-[#f4e3c1] transition-all duration-300 shadow-lg shadow-[#d7b778]/10 flex items-center justify-center gap-2">
+              <span>Send Message</span>
+              <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+            
+            <div id="form-feedback" class="hidden text-xs text-emerald-400 text-center font-mono-code pt-2">
+              ✓ Message sent successfully!
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[#d7b778]/15 bg-[#03050a] py-8">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#9aa5b8]">
+      <div>
+        <p>© 2026 <strong class="text-white">S. Suji</strong> · B.Tech Information Technology</p>
+        <p class="text-[10px] text-gray-500 mt-0.5">St. Joseph College of Engineering</p>
+      </div>
+
+      <!-- Back to top button -->
+      <a href="#" class="p-2.5 rounded-full border border-[#d7b778]/20 text-[#d7b778] hover:bg-[#d7b778] hover:text-[#050811] transition-all duration-300">
+        <i data-lucide="arrow-up" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT CONTROLS -->
+  <script>
+    // 1. Initialize Lucide Icons
+    lucide.createIcons();
+
+    // 2. Mobile Navigation Menu Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('.mobile-nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // 3. Mouse Spotlight Glow Effect inside Bento Cards
+    document.querySelectorAll('.bento-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--x', `${x}px`);
+        card.style.setProperty('--y', `${y}px`);
+      });
+    });
+
+    // 4. Scroll Reveal Animations (Intersection Observer)
+    const revealCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    };
+
+    const revealObserver = new IntersectionObserver(revealCallback, {
+      threshold: 0.1,
+      rootMargin: "0px 0px -40px 0px"
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // 5. Direct Message Form Simulation
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const feedback = document.getElementById('form-feedback');
+      feedback.classList.remove('hidden');
+      e.target.reset();
+      setTimeout(() => {
+        feedback.classList.add('hidden');
+      }, 5000);
+    }
+  </script>
+</body>
+</html>
